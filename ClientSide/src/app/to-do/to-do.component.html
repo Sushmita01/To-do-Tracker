@@ -1,0 +1,28 @@
+<div class="container">
+<header>
+  <h1>To-do</h1>
+</header>
+<main>
+    <div id="createBox">
+      <form id="createForm" onsubmit="return false">
+        <input id="createUserInput" #newToDo>
+        <button (click)="createTodo(newToDo.value)" class="big create">Add</button>
+        <button (click)="reset()" class="big reset">Reset</button>
+      </form>
+    </div>
+    <ul>
+      <li *ngFor="let toDo of toDoList,let idx=index">
+        <div *ngIf="idx!=updateActive" class="listText">{{toDo.todo}}</div>
+        <div *ngIf="idx==updateActive" class="updateText"><input type="text" name="editInput" #editInput (input)="setNewData(editInput.value)" placeholder="{{toDo.toDo}}"></div>
+        <div class="action-buttons">
+            <button *ngIf="idx!=updateActive" (click)="switchtoEditMode(idx)" class="small edit">Edit</button>
+            <button *ngIf="idx!=updateActive" (click)="deleteTodo(toDo)" class="small delete">Delete</button>
+        </div> 
+        <div class="action-buttons-update">
+            <button *ngIf="idx==updateActive" (click)="editTodo(toDo,idx)" class="small update">Update</button>
+            <button *ngIf="idx==updateActive" (click)="cancelUpdate(idx)" class="small cancel">Cancel</button>
+        </div> 
+      </li>
+    </ul>
+</main>
+</div>
